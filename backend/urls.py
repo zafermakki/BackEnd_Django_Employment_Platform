@@ -25,6 +25,7 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
     path('api/auth/', include('users.urls')),
     path('api/', include('companies.urls')),
+    path('api/profile/', include('profiles.urls')),
 ]
 
 if settings.DEBUG:
