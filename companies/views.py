@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions, views
+from rest_framework import generics, permissions, views, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.utils import timezone
@@ -232,3 +232,20 @@ class UserTimeWorkSessionsView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return WorkSession.objects.filter(employee=user).select_related('company').order_by('-start_time')
+
+class ActiveWorkSessionsView(views.APIView):
+
+    def get(self, request):
+        active_sessions = WorkSession.objects.filter(
+            employee=request.user,
+            end_time__isnull=True
+        ).select_related("company")
+
+        company_ids = [session.company.id for session in active_sessions]
+        return Response({"active_companies": company_ids}, status=status.HTTP_200_OK)
+
+class CompanySearchView(generics.ListAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'industry', 'location']

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CompanyCreateView, UserCompaniesListView, CompanyDetailView, CompanyListView, CompanyDetailsView,JobAdCreateView,UserJobAdsListAdvertisementsView,UserJobAdUpdateDeleteAdvertisementsView,JobListView,InternshipListView,ApplyForJobView,UserJobApplicationsListView,UserJobApplicationDeleteView,CompanyApplicationsView, UpdateApplicationStatusView,UserMessagesView,StartWorkView, EndWorkView,UserTimeWorkSessionsView
+from .views import CompanyCreateView, UserCompaniesListView, CompanyDetailView, CompanyListView, CompanyDetailsView,JobAdCreateView,UserJobAdsListAdvertisementsView,UserJobAdUpdateDeleteAdvertisementsView,JobListView,InternshipListView,ApplyForJobView,UserJobApplicationsListView,UserJobApplicationDeleteView,CompanyApplicationsView, UpdateApplicationStatusView,UserMessagesView,StartWorkView, EndWorkView,UserTimeWorkSessionsView,ActiveWorkSessionsView, CompanySearchView
 
 urlpatterns = [
     path('companies/create/', CompanyCreateView.as_view(), name='company-create'),
@@ -23,4 +23,6 @@ urlpatterns = [
     path('companies/<int:company_id>/start-work/', StartWorkView.as_view(), name='start_work'),
     path('companies/<int:company_id>/end-work/', EndWorkView.as_view(), name='end_work'),
     path('companies/user/time/work-sessions/', UserTimeWorkSessionsView.as_view(), name='user-work-sessions'),
+    path('companies/active-sessions/', ActiveWorkSessionsView.as_view(), name='active-sessions'),
+    path('companies/search/', CompanySearchView.as_view(), name='company-search'),
 ]
